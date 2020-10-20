@@ -13,9 +13,16 @@ Pseudocode for MAML, with a small improvement by [Antoniou et al. (2019)](https:
 ```
 1. Randomly choose initialization weights theta
 2. For every task T:
-3.   Compute fast weights for T using S steps of gradient descent with base-learner learning rate LR_base on the support set
+3.   Compute *fast weights* for T using S steps of gradient descent with base-learner learning rate LR_base on the support set
 4.   Compute the loss of the resulting weights on the query set
 5.   Make a single update step on the initialization parameters according to this loss with learning rate LR_meta 
 ```
 
-S, LR_base, and LR_meta are the only hyperparameters that MAML has. 
+LR_base, LR_meta, and S are the only hyperparameters that MAML has. The approach is simple, effective, and much better than common transfer learning methods (which rely on pre-training and fine-tuning). 
+
+It is your task to implement this algorithm in `assignment.py` with the help of PyTorch. Use the instructions on [this webpage](https://pytorch.org/) to install PyTorch for your system. We will not require a GPU. Other requirements can be found in `requirements.txt`. 
+
+To help you with the implementation, here are a few tips:
+- When presented with a new task, we want to learn `fast_weights` (initially a copy of the initialization parameters), which will be adapted on the support set
+- M
+- 
