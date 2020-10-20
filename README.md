@@ -11,11 +11,11 @@ Here, theta denotes the parameters of our base-learner neural network, which att
 
 Pseudocode for MAML, with a small improvement by [Antoniou et al. (2019)](https://arxiv.org/pdf/1810.09502.pdf) is shown below:
 ```
-Randomly choose initialization weights theta
-For every task T:
-  Compute fast weights for T using S steps of gradient descent with base-learner learning rate LR_base on the support set
-  Compute the loss of the resulting weights on the query set
-  Make a single update step on the initialization parameters according to this loss with learning rate LR_meta 
+1. Randomly choose initialization weights theta
+2. For every task T:
+3.   Compute fast weights for T using S steps of gradient descent with base-learner learning rate LR_base on the support set
+4.   Compute the loss of the resulting weights on the query set
+5.   Make a single update step on the initialization parameters according to this loss with learning rate LR_meta 
 ```
 
-Here, S is a hyperparameter of MAML
+S, LR_base, and LR_meta are the only hyperparameters that MAML has. 
