@@ -7,10 +7,13 @@ Every task corresponds to a sine function f(x) = amplitude * sin(x + phase), whe
 
 MAML does this in the following manner. It aims to learn a good set of initialization parameters for a base-learner from which we can quickly learn new tasks within just a few gradient descent updates, as shown in the image below. ![Model-Agnostic Meta-Learning](maml.png)
 
-Here, theta denotes the parameters of our base-learner neural network, which attempts to model sine wave curves. This network has 1 input node, 2 hidden layers of 40 ReLU nodes, and a final output layer of 1 node. MAML attempts to *meta-learn* (find) parameters for this network, from which we can quickly *learn* new sine waves. 
+Here, theta denotes the parameters of our base-learner neural network, which attempts to model sine wave curves. This network has 1 input node, 2 hidden layers of 40 ReLU nodes, and a final output layer of 1 node. MAML attempts to *meta-learn* (find) parameters for this network, from which we can quickly *learn* new sine waves (represented by tasks 1, 2, and 3 in the image). 
 
+Pseudocode for MAML, with a small improvement by [Antoniou et al. (2019)](https://arxiv.org/pdf/1810.09502.pdf) is shown below:
+`
+test
+hello
+`
 
-
-The sine wave function is modeled by a base-learner neural network. This base-learner is a neural network with a single input node (an x-coordinate), followed by 2 hidden layers with 40 ReLU nodes, and a final output layer of 1 node (the predicted y-coordinate of the sine wave).    
 
 The key idea is summarized in 
