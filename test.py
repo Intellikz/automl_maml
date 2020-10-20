@@ -1,9 +1,52 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
+import typing
 
-#from assignment import SineGenerator, plot_history, window, BaseLearner, TrainFromScratch, MAML
-from solution import SineGenerator, plot_history, window, BaseLearner, TrainFromScratch, MAML
+#from assignment import SineGenerator, BaseLearner, TrainFromScratch, MAML
+from solution import SineGenerator, BaseLearner, TrainFromScratch, MAML
+
+
+def window(history: typing.List[float], ticks: int) -> typing.Union[typing.List[int], typing.List[float]]:
+    """
+    Plots a history of values using a window of size <ticks>
+    
+    :param history: typing.List[float]
+    List of values to plot
+    :param ticks: tick interval
+    Window size over which we compute the average
+    
+    :return typing.Union[typing.List[int], typing.List[float]]
+    Transformed x values and corresponding y values
+    """
+    
+    windowed_values = [np.mean(history[i:i+ticks]) for i in range(0, len(history)-ticks, ticks)]
+    xlabels = list(range(ticks, len(history), ticks))
+    return xlabels, windowed_values
+
+def plot_history(tfs_history: typing.List[float], maml_history: typing.List[float]):
+    """
+    Plots lists of loss values for TrainFromScratch and MAML
+    
+    :param tfs_history: typing.List[float]
+    List of 'Train from Scratch' loss values to plot
+    
+    :param maml_history: typing.List[float]
+    List of MAML loss values to plot
+    """
+    
+    plt.figure(figsize=(10,8))
+    plt.title("Sliding window of the MSE over time")
+    plt.xlabel("Episode")
+    plt.ylabel("Mean MSE loss in window")
+    ticks = 300
+    xmaml, maml_windowed = window(maml_history, ticks)
+    xtfs, tfs_windowed = window(tfs_history, ticks)
+    plt.plot(xtfs, tfs_windowed, label="Train from Scratch")
+    plt.plot(xmaml, maml_windowed, label="MAML")
+    plt.legend()
+    plt.show()
+
 
 # Do not change this tests
 def test_maml(visualize=False) -> None:
