@@ -13,16 +13,16 @@ Pseudocode for MAML, with a small improvement by [Antoniou et al. (2019)](https:
 ```
 1. Randomly choose initialization weights theta
 2. For every task T:
-3.   Compute *fast weights* for T using S steps of gradient descent with base-learner learning rate LR_base on the support set
+3.   Compute fast weights for T using S steps of gradient descent with base-learner learning rate LR_base on the support set
 4.   Compute the loss of the resulting weights on the query set
 5.   Make a single update step on the initialization parameters according to this loss with learning rate LR_meta 
 ```
 
 LR_base, LR_meta, and S are the only hyperparameters that MAML has. The approach is simple, effective, and much better than common transfer learning methods (which rely on pre-training and fine-tuning). 
 
-It is your task to implement this algorithm in `assignment.py` with the help of PyTorch. Use the instructions on [this webpage](https://pytorch.org/) to install PyTorch for your system. We will not require a GPU. Other requirements can be found in `requirements.txt`. 
+It is your task to implement this algorithm in `assignment.py` with the help of PyTorch. Here, first-order means that we assume  that Use the instructions on [this webpage](https://pytorch.org/) to install PyTorch for your system. We will not require a GPU. Other requirements can be found in `requirements.txt`. 
 
 To help you with the implementation, here are a few tips:
-- When presented with a new task, we want to learn `fast_weights` (initially a copy of the initialization parameters), which will be adapted on the support set
-- M
+- When presented with a new task, we want to learn `fast_weights` (initially a copy of the initialization parameters), which will be adapted on the support set. We do, however, **not** want to use these weights directly to compute the loss on the support set to make updates, as PyTorch will automatically try to accumulate gradients in them, which will cause confusion when updating our initialization weights. Therefore, create a copy of the fast weights using the function `copy_params` at each of the S steps in your inner-loop (line 3 of the pseudocode)   
+- We ignore second-order gradients, which means that you can simly call loss.backward() without passing retain_graph=True, and create_graph=True 
 - 
