@@ -13,10 +13,9 @@ Pseudocode for MAML, with a small improvement by [Antoniou et al. (2019)](https:
 ```
 Randomly choose initialization weights theta
 For every task T:
-  Compute fast weights for T using a S steps of gradient descent on the support set
+  Compute fast weights for T using S steps of gradient descent with base-learner learning rate LR_base on the support set
   Compute the loss of the resulting weights on the query set
-  Propagate the loss backwards to update the initialization parameters theta (using e.g., Adam)
+  Update the initialization parameters theta according to this loss using a meta-optimizer (e.g., Adam) with learning rate LR_meta 
 ```
 
-
-The key idea is summarized in 
+Here, S is a hyperparameter of MAML
