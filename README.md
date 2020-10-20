@@ -29,6 +29,6 @@ To help you with the implementation, here are a few tips:
 - After a single training step, do not forget to clear the gradient buffers (by calling`zero_grad()` on the optimizer)
 - If you want to see the learning curve of MAML, and compare it to that of a naive baseline (train from scratch), then call `test_maml` with the parameter `visualize=True` (in the file `test.py`)
 
-In the `assignment.py' file, you should only change the code inside of the MAML class, and **nothing else.**
+In the `assignment.py` file, you should only change the code inside of the MAML class, and **nothing else.**
 
 This is an accessible state-of-the-art method in meta-learning, so good luck, and have a lot of fun! 
