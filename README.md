@@ -18,12 +18,12 @@ Pseudocode for MAML, with a small improvement by [Antoniou et al. (2019)](https:
 5.   Make a single update step on the initialization parameters according to this loss with learning rate LR_meta 
 ```
 
-LR_base, LR_meta, and S are the only hyperparameters that MAML has. The approach is simple, effective, and much better than common transfer learning methods (which rely on pre-training and fine-tuning). 
+LR_base, LR_meta, and S are the only hyperparameters that MAML has. The approach is simple, effective, and much better than common transfer learning methods (which rely on pre-training and fine-tuning). We will use LR_base = 0.01, and LR_meta = 0.001, in similar fashion to Finn et al. (2017). We keep S as a variable. 
 
 It is your task to implement this algorithm in `assignment.py` with the help of PyTorch. Here, first-order means that we assume  that Use the instructions on [this webpage](https://pytorch.org/) to install PyTorch for your system. We will not require a GPU. Other requirements can be found in `requirements.txt`. 
 
 To help you with the implementation, here are a few tips:
-- If you are unfamiliar with PyTorch, take a good look at the TrainFromScratch model, which trains on every task from the same initialization point (which never gets updated: stupid start). 
+- If you are unfamiliar with PyTorch, take a good look at the `TrainFromScratch` model in `assignment.py`, which trains on every task from the same initialization point (which never gets updated: stupid start). 
 - When presented with a new task, we want to learn `fast_weights` (initially a copy of the initialization parameters), which will be adapted on the support set. We do, however, **not** want to use these weights directly to compute the loss on the support set to make updates, as PyTorch will automatically try to accumulate gradients in them, which will cause confusion when updating our initialization weights. Therefore, create a copy of the fast weights using the function `copy_params` at each of the S steps in your inner-loop (line 3 of the pseudocode)   
 - We ignore second-order gradients, which means that you can simly call loss.backward() without passing retain_graph=True, and create_graph=True 
-- 
+- After a single training step, do not forget to clear the gradient buffers (by calling`zero_grad()` on the optimizer)
