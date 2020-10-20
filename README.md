@@ -27,7 +27,7 @@ To help you with the implementation, here are a few tips:
 - When presented with a new task, we want to learn `fast_weights` (initially a copy of the initialization parameters), which will be adapted on the support set. We do, however, **not** want to use these weights directly to compute the loss on the support set to make updates, as PyTorch will automatically try to accumulate gradients in them, which will cause confusion when updating our initialization weights. Therefore, create a copy of the fast weights using the function `copy_params` at each of the S steps in your inner-loop (line 3 of the pseudocode)   
 - We ignore second-order gradients, which means that you can simly call loss.backward() without passing retain_graph=True, and create_graph=True 
 - After a single training step, do not forget to clear the gradient buffers (by calling`zero_grad()` on the optimizer)
-- If you want to see the learning curve of MAML, and compare it to that of a naive baseline (train from scratch), then call `test_maml` with the parameter `visualize=True` (in the file `test.py`)
+- If you want to see the learning curve of MAML, and compare it to that of a naive baseline (train from scratch), then call `test_maml` with the parameter `visualize=True` (in the file `test.py`). **Make it false again when submitting your solution!!!**
 
 In the `assignment.py` file, you should only change the code inside of the MAML class, and **nothing else.**
 
