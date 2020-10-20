@@ -15,7 +15,7 @@ Randomly choose initialization weights theta
 For every task T:
   Compute fast weights for T using S steps of gradient descent with base-learner learning rate LR_base on the support set
   Compute the loss of the resulting weights on the query set
-  Update the initialization parameters theta according to this loss using a meta-optimizer (e.g., Adam) with learning rate LR_meta 
+  Make a single update step on the initialization parameters according to this loss with learning rate LR_meta 
 ```
 
 Here, S is a hyperparameter of MAML
