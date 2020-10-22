@@ -3,8 +3,7 @@ import torch
 import typing
 
 from utils import SineGenerator, BaseLearner, TrainFromScratch, plot_history
-#from assignment import MAML
-from solution import MAML
+from assignment import MAML
 
 # Do not change this tests
 def learning_curve(maml_steps=5, plot_tfs=False) -> None:
@@ -36,5 +35,7 @@ def learning_curve(maml_steps=5, plot_tfs=False) -> None:
 np.random.seed(1337)
 torch.manual_seed(42)
 
-# Make sure to try out a different number of steps as well
-learning_curve(maml_steps=3, plot_tfs=False)
+# Make sure to try out at least:
+# 1-step MAML, and
+# 3-step MAML
+learning_curve(maml_steps=1, plot_tfs=True)

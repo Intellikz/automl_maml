@@ -21,7 +21,7 @@ class MAML:
         """
         
         # Keep a history of losses on the query set
-        self.history = []
+        self.history = [] # DO NOT DELETE THIS. 
         
     def copy_params(self, params: typing.List[torch.Tensor]) -> None:
         """
@@ -62,4 +62,4 @@ class MAML:
         # Evaluate the loss on the query set and update the initialization parameters accordingly
 
         # Add the loss on the query set to the history
-        self.history.append(loss.item())
+        self.history.append(loss.item()) # DO NOT DELETE THIS
