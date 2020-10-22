@@ -13,21 +13,12 @@ class MAML:
     
     def __init__(self, num_steps: int) -> None:
         """
-        Randomly initialize the base-learner network and meta-optimizer 
-        (from the outer-loop)
+        Randomly initialize the base-learner initialization parameters, 
+        number of update steps, and meta-optimizer (from the outer-loop)
         
         :param num_steps: int
         Number of updates to make to the initialization parameters in the inner-loop
         """
-        
-        # Number of updates to make in the inner-loop (on a given task)
-        self.num_steps = num_steps
-        # Loss function to optimize
-        self.loss_fn = nn.MSELoss()
-        # Shape of the base-learner network 
-        self.initialization = BaseLearner.random_initial_weights()
-        # Initialize the meta-optimizer, which will update the initialization point
-        self.meta_optimizer = optim.Adam(self.initialization)
         
         # Keep a history of losses on the query set
         self.history = []

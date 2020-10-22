@@ -251,14 +251,15 @@ def plot_history(tfs_history: typing.List[float], maml_history: typing.List[floa
     List of MAML loss values to plot
     """
     
-    plt.figure(figsize=(10,8))
+    plt.figure()
     plt.title("Sliding window of the MSE over time")
     plt.xlabel("Episode")
     plt.ylabel("Mean MSE loss in window")
     ticks = 300
     xmaml, maml_windowed = window(maml_history, ticks)
-    xtfs, tfs_windowed = window(tfs_history, ticks)
-    plt.plot(xtfs, tfs_windowed, label="Train from Scratch")
+    if not tfs_history is None:
+        xtfs, tfs_windowed = window(tfs_history, ticks)
+        plt.plot(xtfs, tfs_windowed, label="Train from Scratch")
     plt.plot(xmaml, maml_windowed, label="MAML")
     plt.legend()
     plt.show()
