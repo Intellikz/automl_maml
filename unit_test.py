@@ -3,7 +3,7 @@ import torch
 import unittest
 
 from utils import SineGenerator, TrainFromScratch
-from solution import MAML
+from assignment import MAML
 
 #Unit tests ran in 183 seconds
 class TestMAML(unittest.TestCase):
