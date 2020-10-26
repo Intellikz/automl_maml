@@ -130,3 +130,4 @@ dmypy.json
 
 solution.py
 unit_test.py
+*.png
