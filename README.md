@@ -18,7 +18,7 @@ Pseudocode for MAML, with a small improvement by [Antoniou et al. (2019)](https:
 5.   Make a single update step on the initialization parameters according to this loss with learning rate LR_meta 
 ```
 
-LR_base, LR_meta, and S are the only hyperparameters that MAML has. The approach is simple, effective, and much better than common transfer learning methods (which rely on pre-training and fine-tuning). We will use LR_base = 0.01, and LR_meta = 0.001, in similar fashion to Finn et al. (2017). We keep S as a variable. 
+LR_base, LR_meta, and S are the only hyperparameters that MAML has. The approach is simple, effective, and much better than common transfer learning methods (which rely on pre-training and fine-tuning). **We will use LR_base = 0.01, and LR_meta = 0.001, in similar fashion to Finn et al. (2017). We keep S as a variable.** 
 
 It is your task to implement this algorithm in `assignment.py` with the help of PyTorch. All requirements to run the script can be found in `requirements.txt`. 
 
