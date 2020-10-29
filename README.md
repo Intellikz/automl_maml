@@ -20,15 +20,18 @@ Pseudocode for MAML, with a small improvement by [Antoniou et al. (2019)](https:
 
 LR_base, LR_meta, and S are the only hyperparameters that MAML has. The approach is simple, effective, and much better than common transfer learning methods (which rely on pre-training and fine-tuning). We will use LR_base = 0.01, and LR_meta = 0.001, in similar fashion to Finn et al. (2017). We keep S as a variable. 
 
-It is your task to implement this algorithm in `assignment.py` with the help of PyTorch. Here, first-order means that we assume  that Use the instructions on [this webpage](https://pytorch.org/) to install PyTorch for your system. We will not require a GPU. Other requirements can be found in `requirements.txt`. 
+It is your task to implement this algorithm in `assignment.py` with the help of PyTorch. All requirements to run the script can be found in `requirements.txt`. 
 
 To help you with the implementation, here are a few tips:
-- If you are unfamiliar with PyTorch, take a good look at the `TrainFromScratch` model in `assignment.py`, which trains on every task from the same initialization point (which never gets updated: stupid start). 
-- When presented with a new task, we want to learn `fast_weights` (initially a copy of the initialization parameters), which will be adapted on the support set. We do, however, **not** want to use these weights directly to compute the loss on the support set to make updates, as PyTorch will automatically try to accumulate gradients in them, which will cause confusion when updating our initialization weights. Therefore, create a copy of the fast weights using the function `copy_params` at each of the S steps in your inner-loop (line 3 of the pseudocode)   
-- We ignore second-order gradients, which means that you can simly call loss.backward() without passing retain_graph=True, and create_graph=True 
-- After a single training step, do not forget to clear the gradient buffers (by calling`zero_grad()` on the optimizer)
-- If you want to see the learning curve of MAML, and compare it to that of a naive baseline (train from scratch), then call `test_maml` with the parameter `visualize=True` (in the file `test.py`). Note that it will slow your program down by a lot (stupid methods cost a stupid amount of time sometimes :) ).  **Make it false again when submitting your solution!!!**
+- We have already initialized the base-learner parameters for you in `self.initialization = [tensor1, tensor2, ..., tensorN]`. This is a list of tensors, which completely specifies the base-learner network, which aims to learn sine-wave functions. In this list, tensors are weights for a specific layer of the network. 
+- The base-learner network, which attempts to learn sine wave functions, has already been implemented for you in `utils.py`. You will only need to use the `forward` function to make predictions on input data. Note that `BaseLearner` is not an object, so to call its functions, you could use `BaseLearner.forward(input_data, network_weights)`. 
+- We will use the MSE loss function to measure the performance of the base-learner. This function is already instantiated (`self.loss_fn`) in the `__init__` function in the MAML class. Use this [link](https://pytorch.org/docs/stable/generated/torch.nn.MSELoss.html#torch.nn.MSELoss) to see how to use the MSE function. 
+- After computing the loss, you have to perform back-propagation, to obtain gradients. You have to explicitly demand pytorch to do this. 
+- After back-propagation, you can access the gradients of tensors through the `.grad` attribute. Note that `self.initialization` is a list of tensors (base-learner parameters), and you can thus call `.grad` on every element. Use this to perform manual gradient descent in the inner-loop!
+- Here is a good [blog post](https://towardsdatascience.com/paper-repro-deep-metalearning-using-maml-and-reptile-fd1df1cc81b0) on some meta-learning techniques. This is extra material, and is not required at all to complete this assignment (they use a completely different approach), but it is interesting! 
 
-In the `assignment.py` file, you should only change the code inside of the MAML class, and **nothing else.**
+In the `assignment.py` file, you should only change the code in the `train` function of the MAML class, and **nothing else.**
+
+You can run `test.py` to see how well your MAML implementation is learning. You can also compare it to a naive approach for learning new tasks (set `plot_tfs=True`), namely one that learns every task from scratch. **Note that the program becomes significantly slower when `plot_tfs=True`**. 
 
 This is an accessible state-of-the-art method in meta-learning, so good luck, and have a lot of fun! 
