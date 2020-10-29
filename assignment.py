@@ -56,10 +56,20 @@ class MAML:
         train_x, train_y, test_x, test_y = task        
         
         # Initialize fast weights to our initialization (specific to this task)
-        
-        # Make S (self.num_steps) updates to the fast weights  
+        fast_weights = [p.clone() for p in self.initialization]
 
+        # Make S (self.num_steps) updates to the fast weights using the support set 
+        for step in range(self.num_steps):
+            # Make predictions with a copy of the fast weights on the input of the support set
+            copy_fast_weights = self.copy_params(fast_weights)
+            
+
+
+        # -- End loop
         # Evaluate the loss on the query set and update the initialization parameters accordingly
-
+        
+        
+        # Empty gradient buffers
+        self.meta_optimizer.zero_grad()
         # Add the loss on the query set to the history
         self.history.append(loss.item()) # DO NOT DELETE THIS
